@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the UMKC  Content Types feature.
+ */
+
+include_once 'umkc_content_types.features.inc';

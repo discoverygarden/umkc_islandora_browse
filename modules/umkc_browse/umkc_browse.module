@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the UMKC Browse feature.
+ */
+
+include_once 'umkc_browse.features.inc';
