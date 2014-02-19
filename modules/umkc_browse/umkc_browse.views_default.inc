@@ -28,9 +28,18 @@ function umkc_browse_views_default_views() {
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'some';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '5';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '0';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'fields';
+  /* No results behavior: Global: Text area */
+  $handler->display->display_options['empty']['area_2']['id'] = 'area_2';
+  $handler->display->display_options['empty']['area_2']['table'] = 'views';
+  $handler->display->display_options['empty']['area_2']['field'] = 'area';
+  $handler->display->display_options['empty']['area_2']['label'] = 'Collections Title';
+  $handler->display->display_options['empty']['area_2']['empty'] = TRUE;
+  $handler->display->display_options['empty']['area_2']['content'] = '<h2>Browse by Collection</h2>';
+  $handler->display->display_options['empty']['area_2']['format'] = 'full_html';
   /* No results behavior: Global: View area */
   $handler->display->display_options['empty']['view']['id'] = 'view';
   $handler->display->display_options['empty']['view']['table'] = 'views';
@@ -38,6 +47,14 @@ function umkc_browse_views_default_views() {
   $handler->display->display_options['empty']['view']['label'] = 'Browse by Collection';
   $handler->display->display_options['empty']['view']['empty'] = TRUE;
   $handler->display->display_options['empty']['view']['view_to_insert'] = 'collections:page';
+  /* No results behavior: Global: Text area */
+  $handler->display->display_options['empty']['area']['id'] = 'area';
+  $handler->display->display_options['empty']['area']['table'] = 'views';
+  $handler->display->display_options['empty']['area']['field'] = 'area';
+  $handler->display->display_options['empty']['area']['label'] = 'Types title';
+  $handler->display->display_options['empty']['area']['empty'] = TRUE;
+  $handler->display->display_options['empty']['area']['content'] = '<h2>Browse by Type</h2>';
+  $handler->display->display_options['empty']['area']['format'] = 'full_html';
   /* No results behavior: Global: View area */
   $handler->display->display_options['empty']['view_1']['id'] = 'view_1';
   $handler->display->display_options['empty']['view_1']['table'] = 'views';
@@ -45,6 +62,14 @@ function umkc_browse_views_default_views() {
   $handler->display->display_options['empty']['view_1']['label'] = 'Browse by Type';
   $handler->display->display_options['empty']['view_1']['empty'] = TRUE;
   $handler->display->display_options['empty']['view_1']['view_to_insert'] = 'topics:page_2';
+  /* No results behavior: Global: Text area */
+  $handler->display->display_options['empty']['area_1']['id'] = 'area_1';
+  $handler->display->display_options['empty']['area_1']['table'] = 'views';
+  $handler->display->display_options['empty']['area_1']['field'] = 'area';
+  $handler->display->display_options['empty']['area_1']['label'] = 'Topics Title';
+  $handler->display->display_options['empty']['area_1']['empty'] = TRUE;
+  $handler->display->display_options['empty']['area_1']['content'] = '<h2>Browse by Topic</h2>';
+  $handler->display->display_options['empty']['area_1']['format'] = 'full_html';
   /* No results behavior: Global: View area */
   $handler->display->display_options['empty']['view_2']['id'] = 'view_2';
   $handler->display->display_options['empty']['view_2']['table'] = 'views';
@@ -80,6 +105,10 @@ function umkc_browse_views_default_views() {
   /* Display: Browse */
   $handler = $view->new_display('block', 'Browse', 'umkc_browse');
   $handler->display->display_options['block_description'] = 'Browse';
+
+  /* Display: Page */
+  $handler = $view->new_display('page', 'Page', 'page_1');
+  $handler->display->display_options['path'] = 'browse';
   $translatables['browse'] = array(
     t('Master'),
     t('more'),
@@ -88,10 +117,17 @@ function umkc_browse_views_default_views() {
     t('Sort by'),
     t('Asc'),
     t('Desc'),
+    t('Collections Title'),
+    t('<h2>Browse by Collection</h2>'),
     t('Browse by Collection'),
+    t('Types title'),
+    t('<h2>Browse by Type</h2>'),
     t('Browse by Type'),
+    t('Topics Title'),
+    t('<h2>Browse by Topic</h2>'),
     t('Browse by Topic'),
     t('Browse'),
+    t('Page'),
   );
   $export['browse'] = $view;
 
@@ -110,7 +146,7 @@ function umkc_browse_views_default_views() {
   $handler->display->display_options['title'] = 'Browse by Collection';
   $handler->display->display_options['use_more'] = TRUE;
   $handler->display->display_options['use_more_always'] = FALSE;
-  $handler->display->display_options['use_more_text'] = 'See more...';
+  $handler->display->display_options['use_more_text'] = 'View more »';
   $handler->display->display_options['access']['type'] = 'none';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
@@ -120,12 +156,6 @@ function umkc_browse_views_default_views() {
   $handler->display->display_options['style_plugin'] = 'grid';
   $handler->display->display_options['style_options']['columns'] = '6';
   $handler->display->display_options['row_plugin'] = 'fields';
-  /* Header: Global: Text area */
-  $handler->display->display_options['header']['area']['id'] = 'area';
-  $handler->display->display_options['header']['area']['table'] = 'views';
-  $handler->display->display_options['header']['area']['field'] = 'area';
-  $handler->display->display_options['header']['area']['content'] = 'Browse by Collection';
-  $handler->display->display_options['header']['area']['format'] = 'filtered_html';
   /* Field: Islandora Solr: PID */
   $handler->display->display_options['fields']['PID']['id'] = 'PID';
   $handler->display->display_options['fields']['PID']['table'] = 'islandora_solr';
@@ -162,7 +192,7 @@ function umkc_browse_views_default_views() {
   $translatables['collections'] = array(
     t('Master'),
     t('Browse by Collection'),
-    t('See more...'),
+    t('View more »'),
     t('Apply'),
     t('Reset'),
     t('Sort by'),
@@ -192,18 +222,19 @@ function umkc_browse_views_default_views() {
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Topics';
+  $handler->display->display_options['title'] = 'Browse by Types';
   $handler->display->display_options['use_more'] = TRUE;
   $handler->display->display_options['use_more_always'] = FALSE;
-  $handler->display->display_options['use_more_text'] = 'See more...';
+  $handler->display->display_options['use_more_text'] = 'View more »';
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
-  $handler->display->display_options['pager']['type'] = 'mini';
+  $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['pager']['options']['items_per_page'] = '6';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['pager']['options']['id'] = '0';
+  $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['style_plugin'] = 'grid';
   $handler->display->display_options['style_options']['columns'] = '6';
   $handler->display->display_options['row_plugin'] = 'fields';
@@ -269,24 +300,14 @@ function umkc_browse_views_default_views() {
 
   /* Display: Topics */
   $handler = $view->new_display('page', 'Topics', 'page_1');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Browse by Topics';
   $handler->display->display_options['defaults']['header'] = FALSE;
-  /* Header: Global: Text area */
-  $handler->display->display_options['header']['area']['id'] = 'area';
-  $handler->display->display_options['header']['area']['table'] = 'views';
-  $handler->display->display_options['header']['area']['field'] = 'area';
-  $handler->display->display_options['header']['area']['content'] = 'Browse by Topic';
-  $handler->display->display_options['header']['area']['format'] = 'filtered_html';
-  $handler->display->display_options['path'] = 'umkc_topics';
+  $handler->display->display_options['path'] = 'browse-topics';
 
   /* Display: Types */
   $handler = $view->new_display('page', 'Types', 'page_2');
   $handler->display->display_options['defaults']['header'] = FALSE;
-  /* Header: Global: Text area */
-  $handler->display->display_options['header']['area']['id'] = 'area';
-  $handler->display->display_options['header']['area']['table'] = 'views';
-  $handler->display->display_options['header']['area']['field'] = 'area';
-  $handler->display->display_options['header']['area']['content'] = 'Browse by Types';
-  $handler->display->display_options['header']['area']['format'] = 'filtered_html';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Published */
@@ -303,11 +324,11 @@ function umkc_browse_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'umkc_islandora_object_type' => 'umkc_islandora_object_type',
   );
-  $handler->display->display_options['path'] = 'umkc_types';
+  $handler->display->display_options['path'] = 'browse-types';
   $translatables['topics'] = array(
     t('Master'),
-    t('Topics'),
-    t('See more...'),
+    t('Browse by Types'),
+    t('View more »'),
     t('Apply'),
     t('Reset'),
     t('Sort by'),
@@ -321,10 +342,10 @@ function umkc_browse_views_default_views() {
     t('next ›'),
     t('last »'),
     t('[field_link]'),
+    t('Topics'),
+    t('Browse by Topics'),
     t('more'),
-    t('Browse by Topic'),
     t('Types'),
-    t('Browse by Types'),
   );
   $export['topics'] = $view;
 
