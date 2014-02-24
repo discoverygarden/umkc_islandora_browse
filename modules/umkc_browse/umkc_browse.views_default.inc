@@ -46,7 +46,7 @@ function umkc_browse_views_default_views() {
   $handler->display->display_options['empty']['view']['field'] = 'view';
   $handler->display->display_options['empty']['view']['label'] = 'Browse by Collection';
   $handler->display->display_options['empty']['view']['empty'] = TRUE;
-  $handler->display->display_options['empty']['view']['view_to_insert'] = 'collections:page';
+  $handler->display->display_options['empty']['view']['view_to_insert'] = 'collections:block_1';
   /* No results behavior: Global: Text area */
   $handler->display->display_options['empty']['area']['id'] = 'area';
   $handler->display->display_options['empty']['area']['table'] = 'views';
@@ -61,7 +61,7 @@ function umkc_browse_views_default_views() {
   $handler->display->display_options['empty']['view_1']['field'] = 'view';
   $handler->display->display_options['empty']['view_1']['label'] = 'Browse by Type';
   $handler->display->display_options['empty']['view_1']['empty'] = TRUE;
-  $handler->display->display_options['empty']['view_1']['view_to_insert'] = 'topics:page_2';
+  $handler->display->display_options['empty']['view_1']['view_to_insert'] = 'topics:block_2';
   /* No results behavior: Global: Text area */
   $handler->display->display_options['empty']['area_1']['id'] = 'area_1';
   $handler->display->display_options['empty']['area_1']['table'] = 'views';
@@ -76,7 +76,7 @@ function umkc_browse_views_default_views() {
   $handler->display->display_options['empty']['view_2']['field'] = 'view';
   $handler->display->display_options['empty']['view_2']['label'] = 'Browse by Topic';
   $handler->display->display_options['empty']['view_2']['empty'] = TRUE;
-  $handler->display->display_options['empty']['view_2']['view_to_insert'] = 'topics:page_1';
+  $handler->display->display_options['empty']['view_2']['view_to_insert'] = 'topics:block_1';
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -152,7 +152,10 @@ function umkc_browse_views_default_views() {
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'full';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '6';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '0';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '0';
+  $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['style_plugin'] = 'grid';
   $handler->display->display_options['style_options']['columns'] = '6';
   $handler->display->display_options['row_plugin'] = 'fields';
@@ -188,7 +191,24 @@ function umkc_browse_views_default_views() {
 
   /* Display: Browse by Collection */
   $handler = $view->new_display('page', 'Browse by Collection', 'page');
+  $handler->display->display_options['defaults']['pager'] = FALSE;
+  $handler->display->display_options['pager']['type'] = 'full';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '999';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '0';
+  $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['path'] = 'collections';
+
+  /* Display: Block */
+  $handler = $view->new_display('block', 'Block', 'block_1');
+  $handler->display->display_options['defaults']['link_display'] = FALSE;
+  $handler->display->display_options['link_display'] = 'page';
+  $handler->display->display_options['defaults']['pager'] = FALSE;
+  $handler->display->display_options['pager']['type'] = 'full';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '6';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '0';
+  $handler->display->display_options['pager']['options']['quantity'] = '9';
   $translatables['collections'] = array(
     t('Master'),
     t('Browse by Collection'),
@@ -207,6 +227,7 @@ function umkc_browse_views_default_views() {
     t('last »'),
     t('<a href="/islandora/object/[PID]"><img src="/islandora/object/[PID]/datastream/TN/view"/><a/>'),
     t('more'),
+    t('Block'),
   );
   $export['collections'] = $view;
 
@@ -226,6 +247,7 @@ function umkc_browse_views_default_views() {
   $handler->display->display_options['use_more'] = TRUE;
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['use_more_text'] = 'View more »';
+  $handler->display->display_options['link_display'] = 'page_2';
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
@@ -243,6 +265,15 @@ function umkc_browse_views_default_views() {
   $handler->display->display_options['header']['area']['id'] = 'area';
   $handler->display->display_options['header']['area']['table'] = 'views';
   $handler->display->display_options['header']['area']['field'] = 'area';
+  /* Field: Content: link */
+  $handler->display->display_options['fields']['field_link']['id'] = 'field_link';
+  $handler->display->display_options['fields']['field_link']['table'] = 'field_data_field_link';
+  $handler->display->display_options['fields']['field_link']['field'] = 'field_link';
+  $handler->display->display_options['fields']['field_link']['label'] = '';
+  $handler->display->display_options['fields']['field_link']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_link']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_link']['click_sort_column'] = 'url';
+  $handler->display->display_options['fields']['field_link']['type'] = 'link_plain';
   /* Field: Content: Thumbnail */
   $handler->display->display_options['fields']['field_thumbnail']['id'] = 'field_thumbnail';
   $handler->display->display_options['fields']['field_thumbnail']['table'] = 'field_data_field_thumbnail';
@@ -256,15 +287,6 @@ function umkc_browse_views_default_views() {
     'image_style' => 'thumbnail',
     'image_link' => '',
   );
-  /* Field: Content: link */
-  $handler->display->display_options['fields']['field_link']['id'] = 'field_link';
-  $handler->display->display_options['fields']['field_link']['table'] = 'field_data_field_link';
-  $handler->display->display_options['fields']['field_link']['field'] = 'field_link';
-  $handler->display->display_options['fields']['field_link']['label'] = '';
-  $handler->display->display_options['fields']['field_link']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_link']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_link']['click_sort_column'] = 'url';
-  $handler->display->display_options['fields']['field_link']['type'] = 'link_plain';
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -298,15 +320,27 @@ function umkc_browse_views_default_views() {
     'umkc_islandora_object_topic' => 'umkc_islandora_object_topic',
   );
 
-  /* Display: Topics */
-  $handler = $view->new_display('page', 'Topics', 'page_1');
+  /* Display: Topics page */
+  $handler = $view->new_display('page', 'Topics page', 'page_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Browse by Topics';
+  $handler->display->display_options['defaults']['pager'] = FALSE;
+  $handler->display->display_options['pager']['type'] = 'full';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '0';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '0';
+  $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['defaults']['header'] = FALSE;
   $handler->display->display_options['path'] = 'browse-topics';
 
-  /* Display: Types */
-  $handler = $view->new_display('page', 'Types', 'page_2');
+  /* Display: Types page */
+  $handler = $view->new_display('page', 'Types page', 'page_2');
+  $handler->display->display_options['defaults']['pager'] = FALSE;
+  $handler->display->display_options['pager']['type'] = 'full';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '0';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '0';
+  $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['defaults']['header'] = FALSE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
@@ -325,6 +359,28 @@ function umkc_browse_views_default_views() {
     'umkc_islandora_object_type' => 'umkc_islandora_object_type',
   );
   $handler->display->display_options['path'] = 'browse-types';
+
+  /* Display: Topics */
+  $handler = $view->new_display('block', 'Topics', 'block_1');
+
+  /* Display: Types */
+  $handler = $view->new_display('block', 'Types', 'block_2');
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'umkc_islandora_object_type' => 'umkc_islandora_object_type',
+  );
   $translatables['topics'] = array(
     t('Master'),
     t('Browse by Types'),
@@ -342,9 +398,11 @@ function umkc_browse_views_default_views() {
     t('next ›'),
     t('last »'),
     t('[field_link]'),
-    t('Topics'),
+    t('Topics page'),
     t('Browse by Topics'),
     t('more'),
+    t('Types page'),
+    t('Topics'),
     t('Types'),
   );
   $export['topics'] = $view;
