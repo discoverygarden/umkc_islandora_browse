@@ -179,7 +179,7 @@ function umkc_browse_views_default_views() {
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['label'] = '';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/islandora/object/[PID]"><img src="/islandora/object/[PID]/datastream/TN/view"/><a/>';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="/umkc/islandora/object/[PID]"><img src="/umkc/islandora/object/[PID]/datastream/TN/view"/><a/>';
   $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
   /* Field: Islandora Solr: fgs_label_s */
   $handler->display->display_options['fields']['fgs_label_s']['id'] = 'fgs_label_s';
@@ -232,7 +232,7 @@ function umkc_browse_views_default_views() {
     t('‹ previous'),
     t('next ›'),
     t('last »'),
-    t('<a href="/islandora/object/[PID]"><img src="/islandora/object/[PID]/datastream/TN/view"/><a/>'),
+    t('<a href="/umkc/islandora/object/[PID]"><img src="/umkc/islandora/object/[PID]/datastream/TN/view"/><a/>'),
     t('more'),
     t('Block'),
   );
@@ -331,6 +331,8 @@ function umkc_browse_views_default_views() {
   $handler = $view->new_display('page', 'Topics page', 'page_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Browse by Topics';
+  $handler->display->display_options['defaults']['css_class'] = FALSE;
+  $handler->display->display_options['css_class'] = 'topics';
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['pager']['options']['items_per_page'] = '0';
@@ -342,6 +344,8 @@ function umkc_browse_views_default_views() {
 
   /* Display: Types page */
   $handler = $view->new_display('page', 'Types page', 'page_2');
+  $handler->display->display_options['defaults']['css_class'] = FALSE;
+  $handler->display->display_options['css_class'] = 'types';
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['pager']['options']['items_per_page'] = '0';
@@ -369,9 +373,13 @@ function umkc_browse_views_default_views() {
 
   /* Display: Topics */
   $handler = $view->new_display('block', 'Topics', 'block_1');
+  $handler->display->display_options['defaults']['css_class'] = FALSE;
+  $handler->display->display_options['css_class'] = 'topics';
 
   /* Display: Types */
   $handler = $view->new_display('block', 'Types', 'block_2');
+  $handler->display->display_options['defaults']['css_class'] = FALSE;
+  $handler->display->display_options['css_class'] = 'types';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Published */
