@@ -375,6 +375,8 @@ function umkc_browse_views_default_views() {
   $handler = $view->new_display('block', 'Topics', 'block_1');
   $handler->display->display_options['defaults']['css_class'] = FALSE;
   $handler->display->display_options['css_class'] = 'topics';
+  $handler->display->display_options['defaults']['link_display'] = FALSE;
+  $handler->display->display_options['link_display'] = 'page_1';
 
   /* Display: Types */
   $handler = $view->new_display('block', 'Types', 'block_2');
